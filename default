@@ -1,0 +1,28 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
+
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    location /redirect_me {
+        rewrite ^/redirect_me www.jcrew.com permanent;
+    }
+
+    error_page 404 /404.html;
+
+    location /404.html {
+        root /usr/share/nginx/html; internal;
+    }
+
+    server_name localhost;
+
+    location / {
+        add_header X-Served-By 115-web-01;
+        try_files $uri $uri/ =404;
+    }
+
+    location /hbnb_static {
+    	 alias /data/web_static/current/
+    }
+}
