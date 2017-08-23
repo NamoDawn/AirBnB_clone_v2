@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 from fabric.api import *
-from datetime import datetime
 from os import path
 
 ''' script that distributes an archive to your web servers '''
