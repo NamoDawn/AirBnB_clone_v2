@@ -13,4 +13,4 @@ def do_pack():
                       (time))
     if arch_path.failed:
         return(None)
-    return("versions/web_static_{}.tgz web_static.format(time)")
+    return("versions/web_static_{}.tgz".format(time))
