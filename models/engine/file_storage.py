@@ -35,7 +35,14 @@ class FileStorage:
 
     def all(self, cls=None):
         """returns private attribute: __objects"""
-        return FileStorage.__objects
+        if cls is None:
+            return FileStorage.__objects
+        else:
+            cls_dict = {}
+            for k, v in FileStorage.__objects.item():
+                if v.__class__.__name__ is cls:
+                    cls_dict[k] = v
+                    return cls_dict
 
     def new(self, obj):
         """sets / updates in __objects the obj with key <obj class name>.id"""
@@ -63,3 +70,7 @@ class FileStorage:
         for o_id, d in new_objs.items():
             k_cls = d['__class__']
             FileStorage.__objects[o_id] = FileStorage.CNC[k_cls](**d)
+
+    def close(self):
+        """ calls reload method to deserialize json to object"""
+        self.reload()
