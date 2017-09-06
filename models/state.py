@@ -18,7 +18,15 @@ class State(BaseModel, Base):
         cities = relationship("City", cascade="all, delete-orphan",
                               backref="state")
     else:
-        name = ""
+        @property
+        def cities(self):
+            """getter method cities returns list of City objects"""
+            city_list = models.storage.all("City").values()
+            filtered_list = []
+            for item in city_list:
+                if city.state_id is self.id:
+                    filtered_list.append(city)
+            return city_list
 
     def __init__(self, *args, **kwargs):
         """instantiates a new state"""
