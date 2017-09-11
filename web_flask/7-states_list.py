@@ -16,16 +16,8 @@ def teardown(self):
 @app.route('/states_list')
 def states_list():
     '''display a HTML page'''
-    states_dict = storage.all(cls='State')
-    state_list = []
-    for k, v in states_dict.items():
-        state_id = k.split('.')
-        state_id = state_id[0]
-        name = v.name
-        tup = (state_id, name)
-        state_list.append(tup)
-    state_list.sort(key=lambda x: x[1])
-    return render_template('7-states_list.html', state_list=state_list)
+    state_dict = storage.all(cls='State')
+    return render_template('7-states_list.html', state_list=state_dict)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
